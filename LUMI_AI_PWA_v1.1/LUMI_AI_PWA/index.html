@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#05060A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="LUMI AI" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>LUMI AI</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar home-topbar" id="homeTopbar">
+      <div>
+        <div class="brand">LUMI<span>AI</span></div>
+        <div class="subtitle">AI Photo Editor & Studio</div>
+      </div>
+      <button class="icon-btn" id="installBtn" aria-label="ติดตั้งแอป" title="Install">⌄</button>
+    </header>
+
+    <main>
+      <section class="page active" id="homePage" data-page="home">
+        <div class="hero-card">
+          <div class="hero-glow"></div>
+          <div class="hero-copy">
+            <span class="eyebrow">LOCAL-FIRST EDITING</span>
+            <h1>แต่งภาพให้สวย<br><span>โดยไม่ทิ้งคุณภาพ</span></h1>
+            <p>แก้ Beauty แสง สี Selective Mask Crop Preset และ Export จากรูปต้นฉบับ พร้อมเก็บโปรเจกต์บนเครื่อง</p>
+          </div>
+          <button class="primary-btn" data-open-picker="light">＋ EDIT PHOTO</button>
+        </div>
+
+        <section class="section-block">
+          <div class="section-head"><h2>QUICK EDIT</h2><span>LOCAL · WORKING</span></div>
+          <div class="quick-grid">
+            <button class="tool-card" data-tool="auto"><b>✦</b><span>Enhance</span><small>Smart Auto</small></button>
+            <button class="tool-card" data-tool="beauty"><b>♡</b><span>Beauty</span><small>Skin-aware</small></button>
+            <button class="tool-card" data-tool="presets"><b>◫</b><span>Presets</span><small>9 Looks</small></button>
+            <button class="tool-card" data-tool="light"><b>☼</b><span>Light</span><small>Exposure</small></button>
+            <button class="tool-card" data-tool="color"><b>◉</b><span>Color</span><small>WB + Color</small></button>
+            <button class="tool-card" data-tool="effects"><b>✧</b><span>Detail</span><small>Clarity + Grain</small></button>
+            <button class="tool-card" data-tool="mask"><b>◐</b><span>Mask</span><small>Manual Selective</small></button>
+            <button class="tool-card" data-tool="crop"><b>⌗</b><span>Crop</span><small>Rotate + Flip</small></button>
+            <button class="tool-card" data-nav="projects"><b>▦</b><span>Projects</span><small>Local Library</small></button>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-head"><h2>PROFESSIONAL</h2><span>ON-DEVICE</span></div>
+          <div class="feature-strip">
+            <button data-tool="light">Light</button>
+            <button data-tool="color">Color</button>
+            <button data-tool="effects">Detail</button>
+            <button data-tool="mask">Mask</button>
+            <button data-tool="presets">Preset</button>
+            <button data-tool="crop">Geometry</button>
+            <button class="info-feature" data-feature="raw">RAW <i>LIMITED</i></button>
+            <button class="info-feature" data-feature="hdr">HDR <i>ROADMAP</i></button>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-head"><h2>AI STUDIO</h2><span>Needs API</span></div>
+          <div class="ai-grid">
+            <button class="ai-card" data-ai="remove"><b>⌫</b><span>Remove</span><i>API</i></button>
+            <button class="ai-card" data-ai="background"><b>▣</b><span>Background</span><i>API</i></button>
+            <button class="ai-card" data-ai="expand"><b>↗</b><span>Expand</span><i>API</i></button>
+            <button class="ai-card" data-ai="portrait"><b>◎</b><span>Portrait</span><i>API</i></button>
+          </div>
+        </section>
+
+        <section class="section-block recent-section">
+          <div class="section-head"><h2>RECENT PROJECTS</h2><button id="viewAllProjectsBtn" class="text-btn">View all</button></div>
+          <div id="recentProjects" class="recent-grid"></div>
+          <div id="emptyProjects" class="empty-state">ยังไม่มีโปรเจกต์ — เลือกรูปแรกเพื่อเริ่มแต่ง</div>
+        </section>
+      </section>
+
+      <section class="page editor-page" id="editorPage" data-page="editor">
+        <header class="editor-topbar">
+          <button class="icon-btn" id="backBtn" aria-label="กลับ">‹</button>
+          <div class="editor-title"><strong id="projectTitle">LUMI EDIT</strong><span id="saveStatus">Local Project</span></div>
+          <div class="editor-actions">
+            <button class="icon-btn" id="undoBtn" aria-label="Undo">↶</button>
+            <button class="icon-btn" id="redoBtn" aria-label="Redo">↷</button>
+            <button class="icon-btn" id="compareBtn" aria-label="Before After">◧</button>
+            <button class="icon-btn accent" id="exportBtn" aria-label="Export">↑</button>
+          </div>
+        </header>
+
+        <div class="canvas-wrap" id="canvasWrap">
+          <div class="canvas-stage" id="canvasStage">
+            <div class="canvas-stack" id="canvasStack">
+              <canvas id="editorCanvas"></canvas>
+              <canvas id="maskOverlay" aria-label="Manual mask canvas"></canvas>
+            </div>
+            <div class="canvas-empty" id="canvasEmpty">
+              <b>LUMI</b>
+              <span>เลือกรูปเพื่อเริ่มแต่ง</span>
+              <button class="primary-btn small" data-open-picker="light">Choose Photo</button>
+            </div>
+            <div class="before-badge" id="beforeBadge">BEFORE</div>
+            <div class="mask-badge" id="maskBadge">MASK BRUSH</div>
+          </div>
+          <div class="image-meta" id="imageMeta">LOCAL • NON-DESTRUCTIVE</div>
+        </div>
+
+        <div class="editor-dock">
+          <div class="tool-tabs" id="toolTabs">
+            <button data-panel="auto"><b>✦</b><span>Auto</span></button>
+            <button data-panel="beauty"><b>♡</b><span>Beauty</span></button>
+            <button data-panel="presets"><b>◫</b><span>Presets</span></button>
+            <button data-panel="light" class="active"><b>☼</b><span>Light</span></button>
+            <button data-panel="color"><b>◉</b><span>Color</span></button>
+            <button data-panel="effects"><b>✧</b><span>Detail</span></button>
+            <button data-panel="mask"><b>◐</b><span>Mask</span></button>
+            <button data-panel="crop"><b>⌗</b><span>Crop</span></button>
+          </div>
+
+          <div class="panel-scroll">
+            <section class="edit-panel" data-panel-view="auto">
+              <div class="panel-title"><div><small>SMART ANALYSIS</small><h3>Auto Enhance</h3></div><button class="reset-btn" id="autoEnhanceBtn">Analyze</button></div>
+              <p class="panel-note">วิเคราะห์ภาพตัวอย่างบนเครื่อง แล้วปรับแสง ช่วงไดนามิก และสีโดยไม่อัปโหลดรูป</p>
+              <div id="analysisResult" class="analysis-card">พร้อมวิเคราะห์รูป</div>
+            </section>
+
+            <section class="edit-panel" data-panel-view="beauty">
+              <div class="panel-title"><div><small>LOCAL BEAUTY</small><h3>Skin-aware Beauty</h3></div><button class="reset-btn" data-reset-panel="beauty">Reset</button></div>
+              <p class="panel-note">ใช้การประมาณ skin chroma บน GPU เพื่อเกลี่ยเฉพาะโทนผิว ไม่ใช่ face recognition และไม่ส่งรูปออกจากเครื่อง</p>
+              <div class="sliders" id="beautySliders"></div>
+            </section>
+
+            <section class="edit-panel" data-panel-view="presets">
+              <div class="panel-title"><div><small>LOOKS</small><h3>Presets</h3></div><button class="reset-btn" data-reset-panel="presets">Reset</button></div>
+              <div class="preset-grid" id="presetGrid"></div>
+            </section>
+
+            <section class="edit-panel active" data-panel-view="light">
+              <div class="panel-title"><div><small>PRO CONTROLS</small><h3>Light</h3></div><button class="reset-btn" data-reset-panel="light">Reset</button></div>
+              <div class="sliders" id="lightSliders"></div>
+            </section>
+
+            <section class="edit-panel" data-panel-view="color">
+              <div class="panel-title"><div><small>COLOR</small><h3>White Balance & Color</h3></div><button class="reset-btn" data-reset-panel="color">Reset</button></div>
+              <div class="sliders" id="colorSliders"></div>
+            </section>
+
+            <section class="edit-panel" data-panel-view="effects">
+              <div class="panel-title"><div><small>DETAIL</small><h3>Texture & Effects</h3></div><button class="reset-btn" data-reset-panel="effects">Reset</button></div>
+              <div class="sliders" id="effectSliders"></div>
+            </section>
+
+            <section class="edit-panel" data-panel-view="mask">
+              <div class="panel-title"><div><small>SELECTIVE EDIT</small><h3>Manual Mask</h3></div><button class="reset-btn" id="clearMaskBtn">Clear</button></div>
+              <p class="panel-note">ระบายพื้นที่บนรูปด้วยนิ้ว แล้วปรับ Exposure / Saturation / Temperature เฉพาะบริเวณนั้น</p>
+              <div class="mask-tools">
+                <button id="maskPaintBtn" class="active">＋ Paint</button>
+                <button id="maskEraseBtn">− Erase</button>
+                <button id="maskUndoStrokeBtn">↶ Stroke</button>
+              </div>
+              <div class="slider-row"><div class="slider-head"><span>Brush Size</span><span id="maskBrushValue">12%</span></div><input id="maskBrushSize" type="range" min="2" max="30" step="1" value="12"></div>
+              <div class="sliders" id="maskSliders"></div>
+            </section>
+
+            <section class="edit-panel" data-panel-view="crop">
+              <div class="panel-title"><div><small>GEOMETRY</small><h3>Crop & Rotate</h3></div><button class="reset-btn" data-reset-panel="crop">Reset</button></div>
+              <div class="ratio-row" id="ratioRow"></div>
+              <div class="geometry-actions">
+                <button id="rotateLeftBtn">↶<span>Rotate</span></button>
+                <button id="flipHBtn">⇆<span>Flip H</span></button>
+                <button id="flipVBtn">⇅<span>Flip V</span></button>
+              </div>
+              <p class="panel-note">ใช้ Center Crop เพื่อความเร็วและเสถียรบน iPhone การเปลี่ยน Geometry จะล้าง Manual Mask เพื่อไม่ให้ mask เหลื่อมตำแหน่ง</p>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="projectsPage" data-page="projects">
+        <div class="page-heading"><span class="eyebrow">LOCAL LIBRARY</span><h1>Projects</h1><p>รูปต้นฉบับและค่าการแต่งถูกเก็บใน IndexedDB ของ PWA นี้</p></div>
+        <div class="project-toolbar">
+          <button class="secondary-btn" data-open-picker="light">＋ New Project</button>
+          <button class="danger-btn" id="clearProjectsBtn">Clear All</button>
+        </div>
+        <div id="allProjects" class="project-list"></div>
+        <div id="allProjectsEmpty" class="empty-state">ยังไม่มีโปรเจกต์</div>
+      </section>
+
+      <section class="page" id="aiPage" data-page="ai">
+        <div class="page-heading"><span class="eyebrow">SERVER FEATURES</span><h1>AI Studio</h1><p>ทุกฟังก์ชันกดดูรายละเอียดได้ แต่การ Generate จะไม่ทำงานจนกว่าจะต่อ backend จริง</p></div>
+        <div class="ai-list">
+          <button data-ai="remove"><b>AI Remove</b><span>ลบคน/วัตถุด้วย Generative Fill</span><i>NEEDS API</i></button>
+          <button data-ai="background"><b>AI Background</b><span>Remove / Replace / Generate / Relight</span><i>NEEDS API</i></button>
+          <button data-ai="expand"><b>Generative Expand</b><span>ขยายภาพ 9:16, 4:5, 16:9</span><i>NEEDS API</i></button>
+          <button data-ai="portrait"><b>AI Portrait</b><span>Portrait styles โดยใช้รูปของผู้ใช้</span><i>NEEDS API</i></button>
+          <button data-ai="hair"><b>AI Hair</b><span>Hairstyle / Hair Color</span><i>NEEDS API</i></button>
+          <button data-ai="outfit"><b>AI Outfit</b><span>เปลี่ยนเสื้อผ้าโดยรักษา pose</span><i>NEEDS API</i></button>
+        </div>
+        <div class="privacy-card"><b>Privacy First</b><p>ฟังก์ชัน Local ไม่ส่งภาพออกจากอุปกรณ์ ส่วน Cloud AI จะต้องแจ้งก่อน Upload ทุกครั้งเมื่อเปิดใช้งานในอนาคต</p></div>
+      </section>
+
+      <section class="page" id="mePage" data-page="me">
+        <div class="page-heading"><span class="eyebrow">LUMI AI PWA</span><h1>My LUMI</h1><p>สถานะอุปกรณ์ การติดตั้ง และการตั้งค่า PWA</p></div>
+        <div class="settings-list">
+          <article><span>App mode</span><strong id="modeValue">Browser</strong></article>
+          <article><span>Offline cache</span><strong id="offlineValue">Checking…</strong></article>
+          <article><span>Projects</span><strong id="projectCount">0</strong></article>
+          <article><span>Renderer</span><strong id="rendererValue">WebGL2</strong></article>
+          <article><span>Cloud AI</span><strong class="warning">Not configured</strong></article>
+        </div>
+        <div class="settings-actions">
+          <button class="primary-btn" id="installHelpBtn">Add LUMI AI to Home Screen</button>
+          <button class="secondary-btn" id="clearOfflineCacheBtn">Clear Offline Cache</button>
+          <button class="secondary-btn" id="aboutBtn">About & Feature Status</button>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" id="bottomNav">
+      <button class="active" data-nav="home"><b>⌂</b><span>Home</span></button>
+      <button data-nav="editor"><b>✎</b><span>Edit</span></button>
+      <button data-nav="projects"><b>▦</b><span>Projects</span></button>
+      <button data-nav="ai"><b>✦</b><span>AI</span></button>
+      <button data-nav="me"><b>◎</b><span>Me</span></button>
+    </nav>
+  </div>
+
+  <input id="photoInput" type="file" accept="image/*" hidden />
+
+  <div class="modal-backdrop" id="exportModal" aria-hidden="true">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div><small>FULL QUALITY</small><h2>Export Photo</h2></div><button class="icon-btn" data-close-modal="exportModal">×</button></div>
+      <label>File type<select id="exportType"><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></label>
+      <label>Quality <span id="qualityValue">92%</span><input id="exportQuality" type="range" min="60" max="100" value="92" /></label>
+      <div class="export-info" id="exportInfo">Original resolution</div>
+      <button class="primary-btn" id="downloadExportBtn">Render & Save</button>
+      <p class="panel-note">PNG รองรับ transparency แต่ JPEG/WebP จะใช้พื้นหลังทึบตาม browser encoder</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="installModal" aria-hidden="true">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div><small>INSTALL PWA</small><h2>Add to Home Screen</h2></div><button class="icon-btn" data-close-modal="installModal">×</button></div>
+      <ol class="install-steps">
+        <li>เปิดเว็บนี้ด้วย Safari บน iPhone</li>
+        <li>แตะปุ่ม Share</li>
+        <li>เลือก <b>Add to Home Screen</b></li>
+        <li>กด Add แล้วเปิด LUMI AI จากหน้าจอหลัก</li>
+      </ol>
+      <button class="primary-btn" data-close-modal="installModal">เข้าใจแล้ว</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="featureModal" aria-hidden="true">
+    <div class="sheet feature-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div><small id="featureStatus">FEATURE</small><h2 id="featureTitle">Feature</h2></div><button class="icon-btn" data-close-modal="featureModal">×</button></div>
+      <div id="featureBody" class="feature-body"></div>
+      <button class="primary-btn" id="featureActionBtn">Close</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="loading" id="loading"><div class="spinner"></div><span id="loadingText">Rendering…</span></div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
