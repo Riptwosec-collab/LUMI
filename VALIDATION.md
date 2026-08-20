@@ -1,27 +1,19 @@
-# LUMI AI PWA v2.0 — Validation
+# LUMI AI PWA v3.0 — Validation
 
-## Static checks
+## Completed static validation
 
-- `node --check app.js` — PASS before source splitting
-- browser scripts `app1.js`–`app7.js` — PASS
-- `manifest.webmanifest` JSON parse — PASS
-- `vercel.json` JSON parse — PASS
-- Duplicate HTML IDs — none
-- Home / Edit / Projects / AI / Me navigation mapping checked
-- Editor panels checked: Auto / Beauty / Presets / Light / Color / Detail / HSL / Curve / Mask / Crop
-- Undo/Redo snapshot includes parameters + mask strokes
-- Geometry invalidates/rebuilds mask alignment
-- Export rebuilds render and mask at output resolution
-- Generative AI paths remain Needs API
+- `node --check` passed for `v3-01.js` through `v3-09.js` and `api/ai.js`.
+- `manifest.webmanifest` and `vercel.json` parse as valid JSON.
+- HTML duplicate-ID check passed on the v3 source document.
+- AI registry contains exactly rembg / Real-ESRGAN / SAM 2 / FLUX.1 Schnell / Stable Diffusion XL.
+- AI gateway uses an allow-list; a browser cannot provide an arbitrary proxy endpoint URL.
+- Service Worker version is `lumi-ai-pwa-v3.0` and excludes `/api/*` from cache handling.
+- v2 local editing workflow is preserved; v3 adds panels/pages/workflows rather than deleting existing tools.
 
-## Production verification
+## Runtime truthfulness
 
-- Vercel production deployment: READY
-- Stable alias: `https://lumi-ai-pwa-live.vercel.app/`
-- Root response: HTTP 200
-- PWA manifest response: HTTP 200
-- deployment assets checked: HTTP 200
+AI tools report READY only when their server endpoint is configured. Otherwise `/api/ai` reports the provider as unconfigured and an attempted job returns `MODEL_NOT_CONFIGURED`. No placeholder image is represented as a successful AI result.
 
-## Runtime environment note
+## Deployment note
 
-The local container Chromium is policy-blocked from opening localhost/file pages, so full automated click-through browser execution could not be run inside the container. JavaScript syntax, DOM/action mapping, production HTTP responses and deployment assets were validated. Final touch/gesture verification should be performed directly on the deployed URL in Safari/iPhone.
+GitHub `main` contains the complete v3 runtime. Vercel automatic/API deployment is currently subject to the account deployment quota; production verification must use the deployment created after the quota permits the latest Git commit to build.
