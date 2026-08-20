@@ -1,0 +1,51 @@
+{
+  "name": "LUMI AI — Pro Photo Editor",
+  "short_name": "LUMI AI",
+  "description": "Privacy-first PWA photo editor with WebGL2, Beauty, HSL, Curve, selective masks, local projects and full-quality export.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05060A",
+  "theme_color": "#05060A",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Edit Photo",
+      "short_name": "Edit",
+      "url": "./?open=editor",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "url": "./?open=projects",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
