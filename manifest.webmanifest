@@ -1,51 +1,21 @@
 {
-  "name": "LUMI AI — Pro Photo Editor",
+  "name": "LUMI AI — Premium AI Photo Studio",
   "short_name": "LUMI AI",
-  "description": "Privacy-first PWA photo editor with WebGL2, Beauty, HSL, Curve, selective masks, local projects and full-quality export.",
+  "description": "Premium PWA photo editor with local Pro tools, model-routed AI Studio, Beauty, masks, projects and export.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#05060A",
-  "theme_color": "#05060A",
+  "background_color": "#0B1020",
+  "theme_color": "#0B1020",
   "orientation": "any",
   "icons": [
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
   ],
   "shortcuts": [
-    {
-      "name": "Edit Photo",
-      "short_name": "Edit",
-      "url": "./?open=editor",
-      "icons": [
-        {
-          "src": "./icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Projects",
-      "short_name": "Projects",
-      "url": "./?open=projects",
-      "icons": [
-        {
-          "src": "./icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    }
+    {"name":"Edit Photo","short_name":"Edit","url":"./?open=editor","icons":[{"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"AI Studio","short_name":"AI","url":"./?open=ai","icons":[{"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"All Tools","short_name":"Tools","url":"./?open=tools","icons":[{"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Projects","short_name":"Projects","url":"./?open=projects","icons":[{"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"}]}
   ]
 }
