@@ -1,6 +1,6 @@
-const CACHE = 'lumi-ai-pwa-v3.1-bilingual';
+const CACHE = 'lumi-ai-pwa-v3.1-bilingual-2';
 const APP_SHELL = [
-  './', './index.html', './manifest.webmanifest', './ui1.txt', './ui2.txt', './i18n.js',
+  './', './index.html', './manifest.webmanifest', './ui1.txt', './ui2.txt', './i18n-v3.1.js',
   './v3-01.js', './v3-02.js', './v3-03.js', './v3-04.js', './v3-05.js', './v3-06.js', './v3-07.js', './v3-08.js', './v3-09.js',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'
 ];
